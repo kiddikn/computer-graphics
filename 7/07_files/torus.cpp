@@ -45,34 +45,18 @@ int main(int argc, char** argv) {
   // 面情報の出力
   //---------------------------
   // torusを出力
-  for(i = 0; i < divisionNum - 1; i++) {
-      for(j = 0;j < divisionNum - 1; j++){
+  for(i = 0; i < divisionNum; i++) {
+      for(j = 0;j < divisionNum; j++){
           int v0 = i*divisionNum + 1 + j;
-          int v1 = v0 + 1;
-          int v2 = (i + 1)*divisionNum + 1 + j;
+          int v1 = i*divisionNum + v0%divisionNum + 1;
+          int v2 = ((i+1)%divisionNum)*divisionNum + 1 + j;
           fprintf(fout, "f %d %d %d\n", v0, v2, v1);
-          v0 = v2;
-          v1 = i*divisionNum + 2 + j;
-          v2 = v2 + 1;
+          v0 = v1;
+          v1 = ((i+1)%divisionNum)*divisionNum + (j+1)%divisionNum + 1;
+          v2 = v2;
           fprintf(fout, "f %d %d %d\n", v0, v2, v1);
       }
-      fprintf(fout, "f %d %d %d\n",i*divisionNum + 1, (i + 1)*divisionNum, (i + 2)*divisionNum);
-      fprintf(fout, "f %d %d %d\n",i*divisionNum + 1, (i + 2)*divisionNum ,(i + 1)*divisionNum + 1); 
   }
-  //最後の接続部分       
-  for(i = 0; i < divisionNum - 1; i++) {                     
-      int v0 = divisionNum*(divisionNum-1)+1+i; 
-      int v1 = v0 + 1;
-      int v2 = i+1;
-      fprintf(fout, "f %d %d %d\n",v0,v2,v1);    
-      v0 = v1;
-      v1 = i + 2;
-      v2 = i + 1;
-      fprintf(fout, "f %d %d %d\n",v0,v2,v1);    
-  }
-  fprintf(fout, "f %d %d %d\n",divisionNum*(divisionNum-1)+1,divisionNum*divisionNum,divisionNum);    
-  fprintf(fout, "f %d %d %d\n",divisionNum*(divisionNum-1)+1,divisionNum,1);    
-
   // 出力用ファイルを閉じる
   //---------------------------
   fclose(fout);
