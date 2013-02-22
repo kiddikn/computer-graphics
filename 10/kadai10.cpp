@@ -205,6 +205,7 @@ void updateCloth(void) {
         Vector3d attraction(cloth->springs[i]->p1->p.x - cloth->springs[i]->p0->p.x,
                             cloth->springs[i]->p1->p.y - cloth->springs[i]->p0->p.y,
                             cloth->springs[i]->p1->p.z - cloth->springs[i]->p0->p.z);  
+        attraction.normalize();
         attraction.scale(strpower);
         cloth->springs[i]->p0->f += attraction; 
         //向きを反転
